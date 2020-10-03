@@ -64,12 +64,13 @@ var rootCmd = &cobra.Command{
 }
 
 func initRepo() error {
-	err := common.MkDirs(repository)
-
-	if err != nil {
-		log.Fatalf("初始化本地仓库目录[%s]失败:%v", repository, err)
-	}
 	absRepo, _ := filepath.Abs(repository)
+	if !common.PathExists(repository) {
+		err := common.MkDirs(repository)
+		if err != nil {
+			log.Fatalf("初始化本地仓库目录[%s]失败:%v", repository, err)
+		}
+	}
 	log.Printf("本地仓库目录：%s", absRepo)
 
 	return nil
