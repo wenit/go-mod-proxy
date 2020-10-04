@@ -167,7 +167,7 @@ go-mod.exe deploy -f f:/github/go-mod -v v1.1.2 -p http://localhost:8082/upload
 
 
 
-## 注意实现
+## 注意事项
 
 ### 1. 私有项目代理注意
 
