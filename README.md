@@ -148,6 +148,23 @@ go-mod-proxy.exe -p 8081 -r repo
 
 
 
+## 通过API上传私有MOD
+
+1. `curl`方式上传
+
+```bash
+curl --location --request POST 'http://localhost:8082/upload' \
+--form 'infoFile=@github.com/wenit/go-mod/@v/v1.1.0.info' \
+--form 'modFile=@go-mod/@v/v1.1.0.mod' \
+--form 'zipFile=@github.com/wenit/go-mod/@v/v1.1.0.zip'
+```
+
+2. 通过[go-mod](https://github.com/wenit/go-mod)打包并上传
+
+``` bash
+go-mod.exe deploy -f f:/github/go-mod -v v1.1.2 -p http://localhost:8082/upload
+```
+
 
 
 ## 注意实现
