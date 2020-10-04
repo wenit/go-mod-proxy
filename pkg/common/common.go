@@ -82,7 +82,7 @@ func GetCurrentDirectory() string {
 
 // MkDirs 创建文件夹
 func MkDirs(path string) error {
-	err := os.Mkdir(path, os.ModePerm)
+	err := os.MkdirAll(path, os.ModePerm)
 	return err
 }
 

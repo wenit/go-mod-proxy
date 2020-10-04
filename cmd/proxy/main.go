@@ -9,6 +9,7 @@ import (
 
 	"github.com/goproxy/goproxy"
 	"github.com/spf13/cobra"
+	"github.com/wenit/go-mod-proxy/internal/api"
 	"github.com/wenit/go-mod-proxy/internal/cacher"
 	"github.com/wenit/go-mod-proxy/internal/version"
 	"github.com/wenit/go-mod-proxy/pkg/common"
@@ -21,6 +22,7 @@ var (
 	debug      bool   // 开启调试模式
 	repository string // 本地仓库目录
 	proxyPort  int    // 代理端口
+	apiPort    int    // 代理端口
 	proxyHost  string // 代理主机名
 )
 
@@ -36,11 +38,11 @@ func startProxy() {
 
 	bindAddress := fmt.Sprintf("%s:%d", proxyHost, proxyPort)
 
-	log.Printf("开始启动服务，监听地址：%s", bindAddress)
+	log.Printf("启动代理服务,监听地址[%s]", bindAddress)
 	err := http.ListenAndServe(bindAddress, proxy)
 
 	if err != nil {
-		log.Fatalf("启动代理[%s]服务失败:%v", repository, err)
+		log.Fatalf("启动代理服务[%s]失败:%v", bindAddress, err)
 	}
 }
 
@@ -59,6 +61,9 @@ var rootCmd = &cobra.Command{
 		}
 
 		initRepo()
+
+		go startAPIServer()
+
 		startProxy()
 	},
 }
@@ -86,11 +91,12 @@ func Execute() {
 
 func init() {
 
-	rootCmd.Flags().BoolVar(&help, "help", false, "帮助信息")
+	rootCmd.Flags().BoolVarP(&help, "help", "h", false, "帮助信息")
 	rootCmd.Flags().BoolVarP(&ver, "version", "v", false, "版本信息")
 	rootCmd.Flags().StringVarP(&repository, "repository", "r", "./data", "本地仓库目录")
-	rootCmd.Flags().StringVarP(&proxyHost, "host", "h", "", "绑定的host")
+	rootCmd.Flags().StringVar(&proxyHost, "host", "", "绑定的host")
 	rootCmd.Flags().IntVarP(&proxyPort, "port", "p", 8081, "代理端口")
+	rootCmd.Flags().IntVar(&apiPort, "apiport", 0, "API端口，默认端口为代理端口+1，用于上传私有包")
 
 	// 帮助文档
 	rootCmd.SetHelpCommand(helpCmd)
@@ -111,4 +117,25 @@ var helpCmd = &cobra.Command{
 			cmd.Help()
 		}
 	},
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "hello world")
+}
+
+func startAPIServer() error {
+
+	if apiPort <= 0 {
+		apiPort = proxyPort + 1
+	}
+
+	bindAddress := fmt.Sprintf("%s:%d", proxyHost, apiPort)
+	api.Repository = repository
+	log.Printf("启动API服务 ,监听地址[%s]", bindAddress)
+	err := api.StartAPIServer(bindAddress)
+
+	if err != nil {
+		log.Fatalf("启动API服务[%s]失败:%v", bindAddress, err)
+	}
+	return nil
 }
