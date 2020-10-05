@@ -78,7 +78,7 @@ func (d *Disk) SetCache(ctx context.Context, c goproxy.Cache) error {
 	filename := filepath.Join(d.Root, filepath.FromSlash(c.Name()))
 	if err := os.MkdirAll(
 		filepath.Dir(filename),
-		644,
+		0644,
 	); err != nil {
 		return err
 	}
@@ -86,7 +86,7 @@ func (d *Disk) SetCache(ctx context.Context, c goproxy.Cache) error {
 	if err := ioutil.WriteFile(
 		fmt.Sprint(filename, ".mime-type"),
 		[]byte(c.MIMEType()),
-		644,
+		0644,
 	); err != nil {
 		return err
 	}
@@ -94,7 +94,7 @@ func (d *Disk) SetCache(ctx context.Context, c goproxy.Cache) error {
 	if err := ioutil.WriteFile(
 		fmt.Sprint(filename, ".checksum"),
 		c.Checksum(),
-		644,
+		0644,
 	); err != nil {
 		return err
 	}
@@ -104,7 +104,7 @@ func (d *Disk) SetCache(ctx context.Context, c goproxy.Cache) error {
 		return err
 	}
 
-	return ioutil.WriteFile(filename, b, 644)
+	return ioutil.WriteFile(filename, b, 0644)
 }
 
 // diskCache implements the `goproxy.Cache`. It is the cache unit of the `Disk`.
