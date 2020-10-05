@@ -31,6 +31,7 @@ func (d *Disk) NewHash() hash.Hash {
 
 // Cache implements the `goproxy.Cacher`.
 func (d *Disk) Cache(ctx context.Context, name string) (goproxy.Cache, error) {
+	log.Printf("get module info [%s]", name)
 	filename := filepath.Join(d.Root, filepath.FromSlash(name))
 	file, err := os.Open(filename)
 	if err != nil {
