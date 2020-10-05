@@ -3,7 +3,7 @@
 
 | 发布日期       | 版本号 | 作者 | 描述 |
 | -------------- | ------ | ---- | ---- |
-| 2020年10月03日 | 0.9.2  | zwb  |      |
+| 2020年10月05日 | 0.9.3  | zwb  |      |
 
 ## 目录
 
@@ -13,7 +13,7 @@
 
 | 更新日期       | 版本号 | 作者 | 描述     |
 | -------------- | ------ | ---- | -------- |
-| 2020年10月04日 | 0.9.2  | zwb  | 实现代理服务，并增加文件上传 |
+| 2020年10月04日 | 0.9.3  | zwb  | 实现代理服务，并增加文件上传 |
 
 
 ## 关于勘误
@@ -93,11 +93,11 @@ git clone源码，然后执行`scripts`中的`build.sh`脚本进行打包，生�
 
 **方式二**：直接Releases中直接下载对应版本
 
-windows版本： [go-mod-proxy_0.9.2_windows_amd64.exe](https://github.com/wenit/go-mod-proxy/releases/download/v0.9.2/go-mod-proxy_0.9.2_windows_amd64.exe)
+windows版本： [go-mod-proxy_0.9.3_windows_amd64.exe](https://github.com/wenit/go-mod-proxy/releases/download/v0.9.3/go-mod-proxy_0.9.3_windows_amd64.exe)
 
-linux版本：[go-mod-proxy_0.9.2_linux_amd64](https://github.com/wenit/go-mod-proxy/releases/download/v0.9.2/go-mod-proxy_0.9.2_linux_amd64)
+linux版本：[go-mod-proxy_0.9.3_linux_amd64](https://github.com/wenit/go-mod-proxy/releases/download/v0.9.3/go-mod-proxy_0.9.3_linux_amd64)
 
-mac版本：[go-mod-proxy_0.9.2_darwin_amd64](https://github.com/wenit/go-mod-proxy/releases/download/v0.9.2/go-mod-proxy_0.9.2_darwin_amd64)
+mac版本：[go-mod-proxy_0.9.3_darwin_amd64](https://github.com/wenit/go-mod-proxy/releases/download/v0.9.3/go-mod-proxy_0.9.3_darwin_amd64)
 
 
 
@@ -139,7 +139,7 @@ go-mod-proxy.exe -p 8081 -r repo
 
 ```bash
 go-mod-proxy.exe -p 8081 -r repo
-2020/10/04 19:02:45 本地仓库目录：G:\go_workspace\go-mod-proxy\releases\0.9.2\windows\repo
+2020/10/04 19:02:45 本地仓库目录：G:\go_workspace\go-mod-proxy\releases\0.9.3\windows\repo
 2020/10/04 19:02:45 启动API服务 ,监听地址[:8082]
 2020/10/04 19:02:45 启动代理服务,监听地址[:8081]
 ```
